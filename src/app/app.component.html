@@ -4,14 +4,32 @@
       NgChat
     </div>
     <div class="card-block">
-      <ng-container *ngFor="let comment of comments">
+      <ng-container *ngFor="let comment of comments;let i=index"><!-- iを追加 -->
         <div class="media">
           <div class="media-left" *ngIf="comment.user.uid !== current_user.uid">
             <a href="#" class="icon-rounded">{{comment.initial}}</a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{comment.user.name}}  Date: {{comment.date | chatDate}}</h4>
-            <div>{{comment.content}}</div>
+            <h4 class="media-heading">{{comment.user.name}}  Date: {{comment.date | chatDate}} 
+              <button class="btn btn-primary btn-sm" (click)="toggleEditComment(i)">編集</button><!-- 追加 -->
+              <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.key)">削除</button><!-- 追加 -->
+            </h4>
+            <!-- edit_flagによって編集フィールドを切り替える -->
+            <ng-container *ngIf="!comment.edit_flag">
+              {{comment.content}}
+            </ng-container>
+            <ng-container *ngIf="comment.edit_flag">
+              <div class="input-group">
+                <input type="text" class="form-control" 
+                [(ngModel)]="comment.content"
+                name="edit_comment">
+              </div>
+              <div class="edit-buttons">
+                <button class="btn btn-success btn-sm" (click)="saveEditComment(i, comment.key)">保存</button>
+                <button class="btn btn-warning btn-sm" (click)="resetEditComment(i)">リセット</button>    
+              </div>
+            </ng-container>
+            <!-- 切り替えここまで -->
           </div>
           <div class="media-right" *ngIf="comment.user.uid === current_user.uid">
             <a href="#" class="icon-rounded">{{comment.initial}}</a>
@@ -19,17 +37,7 @@
         </div>
         <hr> 
       </ng-container>
-      <!-- Realtime Databaseの反映箇所 -->
-      <div class="media">
-        <div class="media-left">
-          <a href="#" class="icon-rounded">{{(item | async)?.initial}}</a>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">{{(item | async)?.name}}</h4>
-          <div>{{(item | async)?.content}}</div>
-        </div>
-      </div>
-      <hr> 
+      <!-- この部分を削除 -->
     </div>
   </section>
 
