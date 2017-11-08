@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router'; // 追加
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
-const appRoutes: Routes = [ // 追加
+const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent},
 ];
@@ -12,7 +12,7 @@ const appRoutes: Routes = [ // 追加
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(appRoutes), // 追加
+    RouterModule.forChild(appRoutes),
   ],
   declarations: [LoginComponent, SignUpComponent]
 })

@@ -3,8 +3,13 @@
     <div class="col-4">
       <a class="navbar-brand" href="#">NgChat</a>
     </div>
-    <div class="col-4 text-right">
-      <a routerLink="/account/login" class="navbar-text">Login</a><!-- routerLinkに変更 -->
+    <!-- ログイン状態で分岐 -->
+    <div *ngIf="!login" class="col-4 text-right">
+      <a routerLink="/account/login" class="navbar-text">Login</a>
     </div>
+    <div *ngIf="login" class="col-4 text-right">
+      <a routerLink="/account/login" class="navbar-text" (click)="logout()">Logout</a>
+    </div>
+    <!-- 分岐ここまで -->
   </div> 
 </nav>
